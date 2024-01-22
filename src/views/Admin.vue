@@ -108,6 +108,7 @@ export default {
       },
       products: [],
       editTargetProduct: null,
+      deleteTargetProduct: null,
       viewTargetImage: null,
       getProductsSuccess: 0,
     }
@@ -164,8 +165,11 @@ export default {
         console.log(err);
       })
     },
-    editProduct(id) {
+    showEditModal(id) {
       this.editTargetProduct = this.products[id];
+    },
+    showDeleteModal(id) {
+      this.deleteTargetProduct = this.products[id];
     },
     checkUserStatus() {
       this.isLogin = 0;
@@ -245,6 +249,7 @@ export default {
                   <thead>
                   <tr class="text-nowrap">
                     <th>Edit</th>
+                    <th>Delete</th>
                     <!--                    <th>產品ID</th>-->
                     <th>產品名稱</th>
                     <th>產品類別</th>
@@ -259,16 +264,22 @@ export default {
                     <th>其他圖片2</th>
                     <th>其他圖片3</th>
                     <th>其他圖片4</th>
-                    <th>Delete</th>
                   </tr>
                   </thead>
                   <tbody>
                   <tr v-for="(product, id) in products" :key="product.id">
                     <td>
-                      <button type="button" class="btn btn-secondary text-nowrap" data-bs-toggle="modal"
-                              :id="'id-edit-btn_' + id" data-bs-target="#editProductModal"
-                              @click="editProduct(id)">
+                      <button type="button" class="btn btn-secondary text-nowrap"
+                              data-bs-toggle="modal" data-bs-target="#editProductModal"
+                              :id="'id-edit-btn_' + id" @click="showEditModal(id)">
                         <font-awesome-icon icon="fa-solid fa-edit"/>
+                      </button>
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-danger"
+                              data-bs-toggle="modal" data-bs-target="#editProductModal"
+                              :id="'id-delete-btn_' + id" @click="showDeleteModal(id)">
+                        <font-awesome-icon icon="fa-solid fa-trash"/>
                       </button>
                     </td>
                     <!--                    <td>{{ id.slice(0, 5) }}...</td>-->
@@ -311,11 +322,6 @@ export default {
                       <template v-if="product.imagesUrl[3]">
                         <img :src="product.imagesUrl[3]" alt="" class="img-preview" @click="viewImage">
                       </template>
-                    </td>
-                    <td>
-                      <button type="button" class="btn btn-danger" @click="deleteProduct">
-                        <font-awesome-icon icon="fa-solid fa-trash"/>
-                      </button>
                     </td>
                   </tr>
                   </tbody>
