@@ -1,6 +1,7 @@
 <script>
 import Navbar from "@/components/Navbar.vue";
-import Loading from "@/components/Loading.vue";
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/css/index.css'
 
 const API_BASE_URL = import.meta.env.VITE_BASE_API_URL;
 export default {
@@ -8,7 +9,7 @@ export default {
   data() {
     return {
       isLogin: 0,
-      accessToken: /; accessToken=([^;]+)/.exec(document.cookie) && /; accessToken=([^;]+)/.exec(document.cookie)[1],
+      accessToken: /accessToken=([^;]+)/.exec(document.cookie) && /accessToken=([^;]+)/.exec(document.cookie)[1],
       page: 'index',
       username: '',
       password: '',
